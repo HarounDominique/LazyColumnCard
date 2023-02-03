@@ -1,5 +1,6 @@
 package com.example.lazycolumncard
 
+import android.icu.text.CaseMap
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -55,4 +56,68 @@ fun DefaultPreview() {
     LazyColumnCardTheme {
         ScaffoldScreen()
     }
+}
+
+@Composable
+fun MyLazyColumn() {
+    LazyColumn(
+        Modifier
+            .fillMaxSize()
+            .padding(10.dp),
+        // state = rememberLazyListState(),  //
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        items(messages) { message -> MyComponent(message) }
+    }
+}
+
+
+data class MyMessage(val body: String)
+
+val messages: List<MyMessage> = listOf(
+    MyMessage(
+        body = "Hola, ¿Has oído hablar de la programación reactiva en Android?"
+    ),
+    MyMessage(
+        body = "You can think of Modifiers as implementations of the decorator pattern"
+    ),
+    MyMessage(
+        body = "You can think of Modifiers as implementations of the decorator pattern"
+    ),
+    MyMessage(
+        body = "You can think of Modifiers as implementations of the decorator pattern"
+    ),
+    MyMessage(
+        body = "You can think of Modifiers as implementations of the decorator pattern"
+    ),
+    MyMessage(
+        body = "You can think of Modifiers as implementations of the decorator pattern"
+    ),
+    MyMessage(
+        body = "You can think of Modifiers as implementations of the decorator pattern"
+    )
+)
+
+
+@Composable
+fun MyComponent(message: MyMessage) {
+
+    Row(
+        Modifier
+            .padding(10.dp)
+            .background(MaterialTheme.colors.secondary)
+            .padding(10.dp)
+    )
+    {
+        Card(
+            //modifier = modifier.clickable { onClick() }
+        ) {
+            Column {
+                Thumb(mediaItem)
+                CaseMap.Title(mediaItem)
+            }
+        }
+
+    }
+
 }
