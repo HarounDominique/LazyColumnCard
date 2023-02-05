@@ -20,9 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.lazycolumncard.ui.theme.LazyColumnCardTheme
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,18 +115,32 @@ val messages: List<MyMessage> = listOf(
 
 @Composable
 fun MyComponent(message: MyMessage) {
-    val backgroundColor = if (message.user == 1) {
+    val conditionalBackgroundColor = if (message.user == 0) {
         Color.Magenta
     } else {
         Color.Cyan
     }
 
+    val conditionalhorizontalAlignment = if (message.user == 0) {
+        TextAlign.Start
+    } else {
+        TextAlign.End
+    }
+
     Card(
         shape = RoundedCornerShape(4.dp),
-        modifier = Modifier.padding(10.dp),
-        backgroundColor = backgroundColor
+        modifier = Modifier.padding(10.dp).width(300.dp),
+        backgroundColor = conditionalBackgroundColor
 
     ) {
-        Text(message.body)
+        Box() {
+            Text(
+                message.body,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+                textAlign = conditionalhorizontalAlignment
+            )
+        }
     }
 }
